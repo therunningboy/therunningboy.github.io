@@ -139,7 +139,35 @@ for f in files:
     if f.endswith(".py"):
         continue
     else:
-        lines = lines + '<div><img width="800px" src="./pics/'+f+'"/></div>'
+        stockcode = f.split("_")[1]
+        if stockcode.startswith("60"):
+            stockcode = "SH" + stockcode
+        elif stockcode.startswith("68"):
+            stockcode = "SH" + stockcode
+        elif stockcode.startswith("00"):
+            stockcode = "SZ" + stockcode
+        elif stockcode.startswith("30"):
+            stockcode = "SZ" + stockcode
+        elif stockcode.startswith("43"):
+            stockcode = "BJ" + stockcode
+        elif stockcode.startswith("87"):
+            stockcode = "BJ" + stockcode
+        elif stockcode.startswith("83"):
+            stockcode = "BJ" + stockcode
+        lines = lines + '''
+        <div>
+        <div style="float:left; width:800px; 
+        text-align:center;background-color:#dddddd;
+        padding-top:10px;padding-bottom:10px;">
+            <a  style="text-decoration:none;font-weight:bold;
+            color:red;" 
+            target="_blank" href="https://xueqiu.com/S/'''+stockcode+'''">'''+stockcode+'''</a>
+            </div>
+            <div>
+            <img width="800px" src="./pics/'''+f+'''"/>
+            </div>
+        </div>
+        '''
 lines = lines + "</body></html>"
 with open("index.html", "w") as fp:
     fp.write(lines)
